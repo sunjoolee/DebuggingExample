@@ -11,10 +11,10 @@ class SampleAppFD {
 
         val tasks = mutableListOf<Deferred<Unit>>()
         for (i in 0..5) {
-            val task = GlobalScope.async(pool) {
+            val task = GlobalScope.async(pool + CoroutineName("main")) {
                 println("Processing ${i} in ${threadName()}")
 
-                withContext(ctx) {
+                withContext(ctx + CoroutineName("inner")) {
                     println("Step two of ${i} happening in thread ${threadName()}")
                 }
 
