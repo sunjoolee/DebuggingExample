@@ -6,9 +6,6 @@ class UserManager(private val dataSource: DataSource) {
         val age = dataSource.getAgeAsync(id)
         val profession = dataSource.getProfessionAsync(id)
 
-        //profession을 받기 위해 대기, 더 오래 걸리기 때문
-        profession.await()
-
-        return User(name.getCompleted(), age.getCompleted(), profession.getCompleted())
+        return User(name.await(), age.await(), profession.await())
     }
 }
